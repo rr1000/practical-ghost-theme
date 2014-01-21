@@ -1,0 +1,66 @@
+{{!< default}}
+
+{{! The comment above "< default" means - insert everything in this file into
+	the {body} of the default.hbs template, which contains our header/footer. }}
+
+{{! The big featured header on the homepage, with the site logo and description }}
+<!-- Site header area, dark backbround, or grab image -->
+<header class="site-head" {{#if @blog.cover}}style="background-image: url({{@blog.cover}})"{{/if}}>
+	<div class="container">
+		<!-- Vertically center -->
+		<div class="vertical">
+			<div class="site-head-content inner">
+				{{#if @blog.logo}}<a class="blog-logo" href="{{@blog.url}}"><img src="{{@blog.logo}}" alt="Blog Logo" /></a>{{/if}}
+				<h1 class="blog-title">
+					<a href="{{@blog.url}}">
+						{{@blog.title}}
+					</a>
+				</h1>
+				<h2 class="blog-description">
+					{{#post}}
+						{{{title}}}
+					{{/post}}
+				</h2>
+			</div>
+		</div><!-- END .vertical -->
+	</div><!-- END .container -->
+</header><!-- END .site-head -->
+
+<div class="sub-head">
+	<div class="container">
+		<!-- Manually add in Twitter/any link until Ghost supports social -->
+		<ul class="social-nav">
+			<li class="twitter"><a href="#">Twitter</a></li>
+			<li class="github"><a href="#">github</a></li>
+			<li class="dribbble"><a href="#">dribbble</a></li>
+		</ul>
+	</div>
+</div><!-- END .sub-head -->
+<div class="container">
+	<main class="content" role="main">
+		<article class="{{post_class}}">
+			{{#post}}
+				<header class="post-header">
+					<h2 class="post-title">
+						<a href="{{url}}">{{{title}}}</a>
+						<span class="post-meta">
+							<time datetime="{{date format='YYYY-MM-DD'}}">{{date format="DD MMM YYYY"}}</time> 
+						</span>
+					</h2>
+						<div class="tags">
+							Post Tags:
+							<span>
+								{{tags prefix=""}}
+							</span>
+						</div>
+				</header>
+				<section class="post-excerpt">
+					{{content}}
+				</section>
+				<section class="author">
+					<h4>{{author.name}}</h4>
+				</section>
+			{{/post}}
+		</article>
+	</main><!-- END role="main" -->
+</div><!-- END .container -->
